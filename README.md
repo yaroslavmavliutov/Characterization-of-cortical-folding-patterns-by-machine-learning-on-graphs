@@ -16,25 +16,9 @@ methods outperform proposed trivial model. All models have been implemented in P
 This repository provides an implementation of DL models for binary classification, as described in the paper:
 
 > Characterization of cortical folding patterns by machine learning on graphs.
-> Yaroslav Mavliutov, 2018.
+> Yaroslav Mavliutov, 2019.
 > [[Paper]](https://github.com/yaroslavmavliutov/Characterization-of-cortical-folding-patterns-by-machine-learning-on-graphs/blob/master/paper.pdf)
 
-### Requirements
-The codebase is implemented in Python 3.7.0 package versions used for development are just below.
-```
-torch             1.0.2
-torchvision       0.4.0
-torch-geometric   1.0.3
-torch-scatter     1.1.2
-torch-sparse      0.2.2
-torch-cluster     1.2.4
-numpy             1.17.0
-networkx          2.3.0
-tqdm              4.33.0
-scikit-learn      0.21.3
-matplotlib        3.0.0
-
-```
 
 ### Installation:
 ```
@@ -70,7 +54,7 @@ of depth of nodes and a vector of coordinates of nodes.
 
 3D visualization of one of these graphs.
 <p align="center">
-  <img width="300" src="graph3d.png">
+  <img width="400" src="graph3d.png">
 </p>
 <p align="justify">
 
