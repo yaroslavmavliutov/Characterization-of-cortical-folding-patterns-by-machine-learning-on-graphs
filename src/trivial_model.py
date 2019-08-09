@@ -13,7 +13,7 @@ from sklearn.model_selection import KFold
 def main():
     args = sys.argv[1:]
     #args = ['trivial']
-    
+
     # Load data
     dataset = GCDataset()
 

@@ -17,7 +17,7 @@ This repository provides an implementation of DL models for binary classificatio
 
 > Characterization of cortical folding patterns by machine learning on graphs.
 > Yaroslav Mavliutov, 2018.
-> [[Paper]](http://ryanrossi.com/pubs/KDD18-graph-attention-model.pdf)
+> [[Paper]](https://github.com/yaroslavmavliutov/Characterization-of-cortical-folding-patterns-by-machine-learning-on-graphs/blob/master/paper.pdf)
 
 ### Requirements
 The codebase is implemented in Python 3.7.0 package versions used for development are just below.
@@ -36,7 +36,7 @@ matplotlib        3.0.0
 
 ```
 
-###Installation:
+### Installation:
 ```
 -conda create -n pytorch_graph python=3.7.0
 
@@ -70,7 +70,7 @@ of depth of nodes and a vector of coordinates of nodes.
 
 3D visualization of one of these graphs.
 <p align="center">
-  <img width="500" src="graph3d.png">
+  <img width="300" src="graph3d.png">
 </p>
 <p align="justify">
 
@@ -88,40 +88,40 @@ by performing masked attention only for adjacent nodes. GraphSage studies the to
 structure of each node’s neighborhood as well as the distribution of node features in the
 neighborhood.
 
-Nodes classification
+Table with results of Nodes classification
 <p align="center">
-  <img width="500" src="result.png">
+  <img width="400" src="result.png">
 </p>
 <p align="justify">
 
 
-#Tutorial:
+# Tutorial:
 
-##create_full_hemisphere_pitsgraphs.py
+## create_full_hemisphere_pitsgraphs.py
 
 - Create the graphs
 
 - Save it using pickle in the folder pitgraphs_path
 Then corresponding data were uploaded on git in newdata folder
 
-##utils.py
+## utils.py
 
 - Concantenate graph data from all subjects into a specifically created GCDataset object
 
-##trivial_model.py
+## trivial_model.py
 
 - Computes the trivial model (independent from deep learning package)
 
 - Various plot and basic data description
 
-##train.py
+## train.py
 
 - To train a DL model
 
-##models.py
+## models.py
 
 - Instantiate each type of model as a specific model class
 
-##layers.py
+## layers.py
 
 - Specific settings for GraphSAGE model
