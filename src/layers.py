@@ -6,7 +6,19 @@ from torch_geometric.utils import add_remaining_self_loops
 
 
 class SAGEConv(MessagePassing):
+    """
+    GraphSAGE layer, similar to torch_geometric.nn.SAGEConv
+
+    The difference is that we can choose the aggregation function,
+    because in torch_geometric.nn.SAGEConv is 'mean' by default
+    """
     def __init__(self, in_channels, out_channels, aggregation, bias=True, **kwargs):
+        '''
+        in_channels: dimensionality of input features
+        out_channels: number of classes for prediction
+        aggregation: type of aggregation function
+        bias: take into account a noise value
+        '''
         super(SAGEConv, self).__init__(aggr=aggregation, **kwargs)
 
         self.in_channels = in_channels
@@ -39,9 +51,15 @@ class SAGEConv(MessagePassing):
                               edge_weight=edge_weight)
 
     def message(self, x_j, edge_weight):
+        """
+        Constructs messages for each edge.
+        """
         return x_j if edge_weight is None else edge_weight.view(-1, 1) * x_j
 
     def update(self, aggr_out):
+        """
+        Updates node embeddings
+        """
         if self.bias is not None:
             aggr_out = aggr_out + self.bias
         return aggr_out

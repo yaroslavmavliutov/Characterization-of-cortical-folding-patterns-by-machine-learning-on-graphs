@@ -11,8 +11,8 @@ from sklearn.model_selection import KFold
 
 
 def main():
-    #args = sys.argv[1:]
-    args = ['dist']
+    args = sys.argv[1:]
+    #args = ['trivial']
     # Load data
     dataset = GCDataset()
 
@@ -36,7 +36,7 @@ def main():
             k += 1
             X_train, X_test = X[train_index], X[test_index]
             y_train, y_test = y[train_index], y[test_index]
-            threshold = train(X_train, y_train)
+            threshold = train(X_train)
             scr = test(X_test, y_test, np.mean(threshold))
             score.append(np.mean(scr))
         print(np.mean(score))

@@ -10,12 +10,26 @@ import numpy as np
 
 
 class NetSAGE(torch.nn.Module):
+    """
+    GraphSage model for node classification
+    """
     def __init__(self, nfeat, nhid, nclass, aggregation='add'):
+        '''
+        nfeat: dimensionality of input features
+        nhid: dimensionality of hidden units at ALL layers
+        nclass: number of classes for prediction
+        aggregation: type of aggregation function
+        '''
         super(NetSAGE, self).__init__()
+
+        # we have 2 SAGEConv_layers defined in src.layers
         self.conv1 = SAGEConv(nfeat, nhid, aggregation)
         self.conv2 = SAGEConv(nhid, nclass, aggregation)
 
     def forward(self, x, adj):
+        """
+        Making a forward propagation step
+        """
         #x = F.dropout(x, training=self.training)
         x = F.relu(self.conv1(x, adj))
         #x = F.dropout(x, training=self.training)
@@ -24,14 +38,26 @@ class NetSAGE(torch.nn.Module):
 
 
 class NetGAT(torch.nn.Module):
+    """
+    GAT model for node classification
+    """
     def __init__(self, nfeat, nhid, nclass):
+        '''
+        nfeat: dimensionality of input features
+        nhid: dimensionality of hidden units at ALL layers
+        nclass: number of classes for prediction
+        '''
         super(NetGAT, self).__init__()
 
+        # we have 3 GATConv_layers defined in torch_geometric
         self.conv1 = GATConv(nfeat, nhid, heads=15, dropout=0.05)
         self.conv2 = GATConv(nhid*15, nhid, heads=15, dropout=0.05)
         self.conv3 = GATConv(nhid*15, nclass, heads=1)
 
     def forward(self, x, adj):
+        """
+        Making a forward propagation step
+        """
         #x = F.dropout(x, training=self.training)
         x = F.relu(self.conv1(x, adj))
         x = F.relu(self.conv2(x, adj))
@@ -41,12 +67,17 @@ class NetGAT(torch.nn.Module):
 
 
 class NetDCNN(nn.Module):
-    """ A DCNN model for node classification.
-    A shallow model.
+    """
+    DCNN model for node classification
+    A shallow model
     (K, X) -> DCNN -> Dense -> Out
     """
     def __init__(self, nhop, nfeat, nclass):
-
+        '''
+        nfeat: dimensionality of input features
+        nhop: number of hops
+        nclass: number of classes for prediction
+        '''
         super(NetDCNN, self).__init__()
 
         self.hops = nhop
@@ -58,7 +89,7 @@ class NetDCNN(nn.Module):
 
     def setup_weights(self):
         """
-        Defining weights.
+        Defining weights
         """
         self.weight_matrix = torch.nn.Parameter(torch.FloatTensor(self.hops+1, self.features))
 
@@ -105,6 +136,9 @@ class NetDCNN(nn.Module):
         return C
 
     def forward(self, x, graph):
+        """
+        Making a forward propagation step
+        """
         kernel = self.A_to_diffusion_kernel(graph, self.hops)
 
         Apow_dot_X = self.batch_matmul(kernel, x)
@@ -115,6 +149,7 @@ class NetDCNN(nn.Module):
         output = fcl(Z)
         return output
 
+# simple network used in DCNN model
 class NetSimple(nn.Module):
     def __init__(self, in_channels, out_channels):
         super(NetSimple, self).__init__()
